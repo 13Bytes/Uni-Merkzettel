@@ -1,0 +1,320 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Template Source: Dave Richeson (divisbyzero.com), Dickinson College
+% Author: Louis Dod (13bytes.de)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Please report any errors either via pull request, issue (https://github.com/13Bytes/Uni-Merkzettel) or mail (coding@13bytes.de)
+% Improvements are also gladly accepted
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[a4paper,10pt,landscape]{article}
+\usepackage{fontspec}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}    % font
+\usepackage[frenchb]{babel} 
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+\usepackage[colorinlistoftodos, ngerman]{todonotes}
+\usepackage{cancel}
+\definecolor{lime}{RGB}{51, 204, 51}
+
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=.2cm,left=1cm,right=1cm,bottom=.2cm} }
+		{\geometry{top=.2cm,left=1cm,right=1cm,bottom=.2cm} }
+	}
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+                                
+\newcommand{\OK}{\fcolorbox{black}{green}{\rule{0pt}{1pt}\rule{1pt}{0pt}}}
+\newcommand{\NO}{\fcolorbox{black}{red}{\rule{0pt}{1pt}\rule{1pt}{0pt}}}
+                                
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+% -----------------------------------------------------------------------
+
+\begin{document}
+
+\raggedright
+\footnotesize
+
+Merkblatt Theo 1 - Matr.: \hspace{3cm} Name: \hspace{16cm}
+{\tiny{\href{https://github.com/13Bytes/Uni-Merkzettel}{\textcolor{gray}{github.com/13Bytes/Uni-Merkzettel}}}}\\
+
+\begin{multicols}{3}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+% -----------------------------------------------------------------------
+
+\section{\textcolor{lime}{Typ-3}: REG \textit{[regulär]}}
+Erkannt durch \textbf{DEA = NEA = RegEx ($\gamma$)} (Robin \& Scott, regEx: Kleene) \\
+Gleichbedeutend: $Synt(L)$ ist endlich.
+
+Bsp: $\{a^nb^m | n,m \in \mathbb{N} \}$
+
+Beweis $w \in REG$: regEx, Automat \\
+Beweis $w \not\in REG$: Pumping-Lemma, Myhill-Nerode
+
+\textcolor{magenta}{
+$(u,v) \in P$ mit $v \in \Sigma \cup \Sigma V$
+}
+
+\hrule
+\smallskip
+
+
+\section{\textcolor{lime}{------\ }: DCFL \textit{[deterministisch kontextfrei]}}
+Erkannt durch \textbf{DPDA}
+
+Bsp: $\{a^nb^n | n \in \mathbb{N} \}$, $\{w\$w^R | w \in \Sigma^* \}$
+
+
+
+\section{\textcolor{lime}{Typ-2}: CFL \textit{[kontextfrei]}}
+Erkannt durch \textbf{PDA} (keine kreuzenden Abhängigkeiten)
+
+Bsp: $\{ww^R | w \in \Sigma^* \}$
+
+Beweis $w \in CFL$: \textbf{CYK-Algo}, Grammatik, PDA\\
+Beweis $w \not\in CFL$: \textbf{Pumping-Lemma T2 \ref{sec.pumpingLemma}}
+
+\textcolor{red}{Chomsky-Normalform (CNF): $A \rightarrow a | AB$} \\
+Kuroda-Normalform (KNF): $A \rightarrow a | A | AB$ \&  $AB \rightarrow  CD$
+Greibach-Normalform: $A \rightarrow aV^* $ (mit $V^*, A$: Variablen)
+
+\textcolor{magenta}{
+$(u,v) \in P$ mit $u \in V$
+}
+\hrule
+\smallskip
+
+
+\section{\textcolor{lime}{Typ-1}: CSL \textit{[nicht-verkürzend]}}
+\textbf{\textit{[kontextsensitiv]}}\\
+Erkannt durch \textbf{LBA} (linear beschränkte Turing-Maschine)\\
+(Satz von Kuroda)
+
+Bsp: $\{a^nb^nc^n | n \in \mathbb{N} \}$, $\{a^nb^mn^nd^m | n,m \in \mathbb{N} \}$, $\{w w | w \in \Sigma^* \}$
+
+\textcolor{magenta}{
+$(u,v) \in P$ mit $ |u|\leq |v|$
+}
+\hrule
+\smallskip
+
+
+\section{\textcolor{lime}{------\ }: REC \textit{[entscheidbare Sprachen]}}
+Erkannt durch Turing-Maschinen mit \textbf{JA/ NEIN}-Antwort
+\hrule
+\smallskip
+
+\section{\textcolor{lime}{Typ-0}: R.E. \textit{[beliebig]}}
+Erkannt durch Turing-Maschinen mit \textbf{JA/ ?}-Antwort
+
+Bsp: Halte-Problem
+\hrule
+\smallskip
+
+\section{Abschlusseigenschaften}
+\begin{tabular}{l|lllll}
+      & \begin{tabular}[c]{@{}l@{}}Schnitt\\ $\cap$\end{tabular} & \begin{tabular}[c]{@{}l@{}}Vereinig.\\ $\cup$\end{tabular} & Kompl. & Produkt & Stern \\ \hline
+Typ-3 & \OK             & \OK               & \OK          & \OK      & \OK    \\
+DCFL  & \NO             & \NO               & \OK          & \NO      & \NO    \\
+Typ-2 & \NO             & \OK               & \NO          & \OK      & \OK    \\
+Typ-1 & \OK             & \OK               & \OK          & \OK      & \OK    \\
+Typ-0 & \OK             & \OK               & \NO          & \OK      & \OK   
+\end{tabular}
+
+Typ-3 ist auch unter Homomorphismen abgeschlossen.
+
+
+
+\section{Grammatiken \& Automaten}
+\subsection{Grammatik}\label{sec.grammatik}
+\textcolor{magenta}{
+Allgemein: $G=(V,\Sigma,P,S)$ mit $P \subseteq (V\cup \Sigma)^+ \times (V\cup\Sigma)^*$
+}
+
+\subsection{Automaten}
+$\hat{\delta}(z, w)$ beschreibt in welchen Zustand man kommt, wenn man das ganze Wort w liest
+\subsubsection{DEA}
+\textcolor{blue}{Allgemein: $M=(Z,\Sigma,\delta,z_0, E)$\\
+$Z$: Zustände;
+$z_0$: Startzustand $\in Z$;
+$E$: akzeptierende Endzustände $ \subseteq Z$;
+$\delta$: Überführungsfunktion $Z \times \Sigma \rightarrow Z$
+}
+... erzeugt Sprache T(M)
+
+\subsubsection{NEA}
+\textcolor{blue}{Allgemein: $M=(Z,\Sigma,\delta,S, E)$\\
+$S$: Menge an Startzuständen;
+$\delta$ Überführungsfunktion $\rightarrow \mathcal{P}(Z)$
+}
+
+\subsubsection{PDA}
+\textcolor{blue}{
+Allgemein: $M=(Z,\Sigma,\Gamma,\delta,z_0, \#)$\\
+Mit Endzuständen: $M=(Z,\Sigma,\Gamma,\delta,z_0,\#,E)$\\
+$\Gamma$: Kelleralphabet;
+$\delta$ Zustandübernagsfunktion $\rightarrow \mathcal{P}_{\textrm{\textbf{e}ndlich}}(Z\times\Gamma^*)$
+}
+$\delta(z, a, A) \ni(z', B_1..B_k) $, 
+oder $\epsilon$-Üg: 
+$\delta(z, \epsilon, A) \ni(z', B_1..B_k) $
+\textcolor{blue}{
+Konfiguration (z, w, V)}
+mit $L(G) = N(M) = \{ w\in\Sigma^* \ |\  \exists z \in Z: (z_0, w, \#) \vdash^* (z, \epsilon, \epsilon) \}$
+
+\textcolor{lime}{
+Lemma: $(z, w, V) \vdash^* (z', w', V') \Rightarrow (z, wx, VY) \vdash^* (z', w'x, V'Y)$
+}
+
+\subsubsection{DPDA}
+Akzeptiert durch Endzustände; Immer max. ein Übergang möglich
+
+
+\section{Diverses}
+\subsection{Pumping-Lemma}\label{sec.pumpingLemma}
+Sei $n$ gegeben. Wähle Wort $z\in L$ mit $|z|\geq n$ \\
+\textbf{Typ-3} \\
+Seien $u,v,w\in\Sigma^*$ beliebig in Zerlegung $z=uvw$ (wo gilt: $|v|\geq 1$ \& $|uv|\leq n$)\\
+Beweis, dass $uv^iw \not\in L$ für ein $i \geq 0$
+$\Rightarrow L $ nicht Typ-3
+
+
+\textbf{Typ-2}\\
+Seien $u,v,w,x,y\in\Sigma^*$ beliebig in Zerlegung  $z=uvwxy$ (wo gilt: $|vwx|\leq n$ \& $|vx|\geq 1$)\\
+\textit{Meist Fallunterscheidung für $vx$ enthält ....}\\
+Beweis, dass $uv^iwx^iy \not\in L$ für ein $i \geq 0$
+$\Rightarrow L $ nicht Typ-2
+
+\subsection{Äquivalenzen}
+\textbf{Myhill-Nerode $R_L$}\\
+$x R_r y \Longleftrightarrow [ \forall w\in \Sigma^*:xw\in L \Leftrightarrow yw\in L ] $  - hinten anhängen.
+
+\textcolor{blue}{
+Beweis Sprache $L$ nicht regulär:\\
+}
+Menge $M  \subseteq  \Sigma^*$ finden, mit $|M| = \infty$, für die gilt:\\
+z.Z.: $\forall x,y \in M: x \neq y \Longrightarrow x\; \cancel{R_L}\; y\quad$\\
+Dann $L$ nicht regulär, da Index von M-N-Aquivalenz $ |\Sigma^*/R_L|=\infty$
+
+\hrule
+\smallskip
+wird durch \textbf{Relation $R_M$ } verfeinert.\\
+(Auf gegebenem Automaten definiert - Muss nicht minimal sein)\\
+$x R_r y \Longleftrightarrow \hat{\delta}(z_o,x)= \hat{\delta}(z_o,y) $
+Alle Wörter in selber Klasse, die im selben Automat-Zustand sind.
+\\
+$\Rightarrow$ $xR_My \Longrightarrow x R_L y \Longrightarrow |R_L| \leq |R_M|$
+\hrule
+\smallskip
+\textbf{Syntaktische Kongruenz $\equiv_L$}\\
+$x \equiv_L y  \Longleftrightarrow [ \forall w_1, w_2 \in \Sigma^*:w_1 x w_2\in L \Leftrightarrow w_1 y w_2\in L ] $  - auf beiden Seiten anhängen.
+
+\subsection{Monoide}
+\begin{itemize}
+    \item Abgeschlossenheit 
+    \item Assoziativ $\forall a,b,c\in M\colon (a*b)*c=a*(b*c)$
+    \item neutrales Element $e$: $\forall a\in M\colon e*a=a*e=a $
+\end{itemize}
+$\rightarrow$ \textbf{syntaktisches Monoid $\textrm{Synth}(L) \quad \Sigma^*/\equiv_L $ }\\
+
+\subsubsection{Erkennung durch Monoide}
+Monoid $M$ erkennt $L$, wenn $A \subseteq M, \varphi=\Sigma^* \mapsto M$ und $L=\varphi^{-1}(A)$
+(bzw. $w\in L \Leftrightarrow \varphi(w) \in A$)
+mit $\varphi$ ist Homomorphismus.
+
+\subsection{Homomorphismus}
+Abbildung $\varphi$: Monoid $M \rightarrow N$ Monoid. Mit Eigenschaften:\\
+$ \forall a,b\in M: f(a \circ_1 b) = f(a) \circ_2 f(b)$ und  $\varphi(\textrm{neutrE}_1) = \textrm{neutrE}_2$
+
+
+\subsection{Chomsky-Normalform}
+\begin{itemize}
+    \item Ringleitung entfernen (jeweils alle beteiligten Variablen zu neuer ändern)
+    \item Variablen anordnen \& Kettenregeln entfernen
+    \item Pseudoterminale einführen
+    \item Abkürzungen einführen
+\end{itemize}
+
+
+\subsection{Minimierung DEA}
+\begin{tabular}{|l|l|ll}
+\cline{1-2}
+\textbf{z1} &             &                                  &                                  \\ \cline{1-3}
+\textbf{z2} &             & \multicolumn{1}{l|}{}            &                                  \\ \hline
+\textbf{z3} &             & \multicolumn{1}{l|}{}            & \multicolumn{1}{l|}{}            \\ \hline
+\textbf{}   & \textbf{z0} & \multicolumn{1}{l|}{\textbf{z1}} & \multicolumn{1}{l|}{\textbf{z2}} \\ \hline
+\end{tabular}
+\begin{itemize}
+    \item Paare mit \textbf{einem} Endzustand markieren.
+    \item Wiederholt alle Paare markieren, die für $\exists a \in \Sigma$ in Markierung landen.
+    \item nicht markierte Zustandspaare verschmelzen.
+\end{itemize}
+
+\subsection{CYK-Algo}
+\begin{tabular}{|l|l|ll}
+\hline
+Länge & w1   & \multicolumn{1}{l|}{w2}   & \multicolumn{1}{l|}{...} \\ \hline
+1     & T1,1 & \multicolumn{1}{l|}{T2,1} & \multicolumn{1}{l|}{...} \\ \hline
+2     & T2,1 & \multicolumn{1}{l|}{T2,2} &                          \\ \cline{1-3}
+...   &      &                           &                          \\ \cline{1-2}
+\end{tabular}
+$T_{i,j} = \{A\in V | A \Rightarrow^*_G a_i ...a_{i+j-1}\}$
+
+\section{whrschl. Irrelevant}
+\subsection{Logik}
+Kontraposition: $A\Rightarrow B \quad =\quad  \neg B \Rightarrow \neg A $\\
+DeMorgan: $\neg(A \land B) \quad =\quad  (\neg A \lor \neg B) $
+
+\subsubsection{linksrekursion Entfernen (vgl. GNF)}
+$A \rightarrow A\alpha_1 | A\alpha_2|...|\beta_1 |\beta_1| ...$\\
+ersetzen durch:\\
+$A \rightarrow \beta_1|\beta_2|...  \quad |\beta_1B|\beta_2B|...$\\
+$B \rightarrow \alpha_1|\alpha_2|... \quad | \alpha_1B|\alpha_2B|... $
+
+\subsubsection{Relationen}
+für $m, m^{'(')}\in M$: \\
+\textcolor{magenta}{
+\textbf{Ordnungsrelationen}\\
+reflx.: $m\ R\ m $ \\
+Identität: $(m'\ R\ m) \land (m\ R\ m') \Rightarrow (m' = m)$\\
+transitiv: $(m'\ R\ m) \land (m\ R\ m'') \Rightarrow (m\ R\ m')$\\
+}
+symmetrisch: $(m'\ R\ m) \Leftrightarrow (m\ R\ m')$\\
+
+Kongruenz: $[w_1 \equiv z_1 \textrm{ und } w_2 \equiv z_2 ] \Rightarrow w_1w_2 \equiv z_1z_2$
+
+
+\subsubsection{Beweis Pumping-Lemma T3}
+$L$ beliebige T3-Sprache. $\Rightarrow \textrm{DEA } M$. $n=|Z|$.
+Mit $x \in L, |x|\geq n \Rightarrow x=x_1x_2x_3...x_ny$ ($y\in\Sigma^*$). 
+$Q \subseteq Z$ mit $Q=\{\hat{\delta}(z_0, x_1...x_n) \} \Rightarrow |Q|\leq n$.\\
+
+
+\end{multicols}
+\end{document}
