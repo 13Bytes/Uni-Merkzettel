@@ -21,6 +21,7 @@
 \usepackage[colorinlistoftodos, ngerman]{todonotes}
 \usepackage{cancel}
 \definecolor{lime}{RGB}{51, 204, 51}
+\definecolor{neptune}{RGB}{131,194,188}
 
 \ifthenelse{\lengthtest { \paperwidth = 11in}}
     { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
@@ -74,7 +75,7 @@ Gleichbedeutend: $Synt(L)$ ist endlich.
 
 Bsp: $\{a^nb^m | n,m \in \mathbb{N} \}$
 
-Beweis $w \in REG$: regEx, Automat \\
+Beweis $w \in REG$: regEx, Automat, Abschlusseigenschaften \\
 Beweis $w \not\in REG$: Pumping-Lemma, Myhill-Nerode
 
 \textcolor{magenta}{
@@ -86,7 +87,10 @@ $(u,v) \in P$ mit $v \in \Sigma \cup \Sigma V$
 
 
 \section{\textcolor{lime}{------\ }: DCFL \textit{[deterministisch kontextfrei]}}
-Erkannt durch \textbf{DPDA}
+Erkannt durch \textbf{DPDA} (Akzeptierung durch Endzustände)\\
+Von jedem Zustand darf nur ein Übergang möglich sein:
+$\forall a \in \Sigma, \forall z \in Z, \forall A \in  \Gamma: $
+$|\delta(z,a,A)| + |\delta(z,\epsilon,A| \leq 1$
 
 Bsp: $\{a^nb^n | n \in \mathbb{N} \}$, $\{w\$w^R | w \in \Sigma^* \}$
 
@@ -97,11 +101,10 @@ Erkannt durch \textbf{PDA} (keine kreuzenden Abhängigkeiten)
 
 Bsp: $\{ww^R | w \in \Sigma^* \}$
 
-Beweis $w \in CFL$: \textbf{CYK-Algo}, Grammatik, PDA\\
-Beweis $w \not\in CFL$: \textbf{Pumping-Lemma T2 \ref{sec.pumpingLemma}}
+Beweis $w \in CFL$: \textbf{CYK-Algo}, Grammatik oder PDA angeben\\
+Beweis $w \not\in CFL$: \textbf{Pumping-Lemma T2}
 
 \textcolor{red}{Chomsky-Normalform (CNF): $A \rightarrow a | AB$} \\
-Kuroda-Normalform (KNF): $A \rightarrow a | A | AB$ \&  $AB \rightarrow  CD$
 Greibach-Normalform: $A \rightarrow aV^* $ (mit $V^*, A$: Variablen)
 
 \textcolor{magenta}{
@@ -118,6 +121,8 @@ Erkannt durch \textbf{LBA} (linear beschränkte Turing-Maschine)\\
 
 Bsp: $\{a^nb^nc^n | n \in \mathbb{N} \}$, $\{a^nb^mn^nd^m | n,m \in \mathbb{N} \}$, $\{w w | w \in \Sigma^* \}$
 
+Kuroda-Normalform (KNF): $A \rightarrow a | A | AB$ \&  $AB \rightarrow  CD$
+
 \textcolor{magenta}{
 $(u,v) \in P$ mit $ |u|\leq |v|$
 }
@@ -130,10 +135,13 @@ Erkannt durch Turing-Maschinen mit \textbf{JA/ NEIN}-Antwort
 \hrule
 \smallskip
 
-\section{\textcolor{lime}{Typ-0}: R.E. \textit{[beliebig]}}
+\section{\textcolor{lime}{Typ-0}: R.E. \textit{[rekursiv aufzählbar]}}
 Erkannt durch Turing-Maschinen mit \textbf{JA/ ?}-Antwort
 
 Bsp: Halte-Problem
+
+Abzählbar unendlich viele Grammatiken
+
 \hrule
 \smallskip
 
@@ -147,17 +155,23 @@ Typ-1 & \OK             & \OK               & \OK          & \OK      & \OK    \
 Typ-0 & \OK             & \OK               & \NO          & \OK      & \OK   
 \end{tabular}
 
-Typ-3 ist auch unter Homomorphismen abgeschlossen.
+\textcolor{neptune}{
+    DCFL $\cap$ Typ-3 $\in$ DCFL \\
+    Typ-2 $\cap$ Typ-3 $\in$ Typ-2 \\
+}
 
+Typ-3 ist auch unter Homomorphismen abgeschlossen
 
 
 \section{Grammatiken \& Automaten}
 \subsection{Grammatik}\label{sec.grammatik}
 \textcolor{magenta}{
-Allgemein: $G=(V,\Sigma,P,S)$ mit $P \subseteq (V\cup \Sigma)^+ \times (V\cup\Sigma)^*$
-}
+Allgemein: $G=(V,\Sigma,P,S)$ mit $P \subseteq (V\cup \Sigma)^+ \times (V\cup\Sigma)^*$}\\
+Beweis $L$ wird von $G$ erzeugt: $L(G)\subseteq L$ und $L\subseteq L(G)$
 
+Eine Grammatik heißt mehrdeutig, wenn es ein Wort mit mindestens zwei Syntaxbäumen/Ableitungen gibt.
 \subsection{Automaten}
+$T(M) = L$\\
 $\hat{\delta}(z, w)$ beschreibt in welchen Zustand man kommt, wenn man das ganze Wort w liest
 \subsubsection{DEA}
 \textcolor{blue}{Allgemein: $M=(Z,\Sigma,\delta,z_0, E)$\\
@@ -179,7 +193,7 @@ $\delta$ Überführungsfunktion $\rightarrow \mathcal{P}(Z)$
 Allgemein: $M=(Z,\Sigma,\Gamma,\delta,z_0, \#)$\\
 Mit Endzuständen: $M=(Z,\Sigma,\Gamma,\delta,z_0,\#,E)$\\
 $\Gamma$: Kelleralphabet;
-$\delta$ Zustandübernagsfunktion $\rightarrow \mathcal{P}_{\textrm{\textbf{e}ndlich}}(Z\times\Gamma^*)$
+$\delta$ Zustandsübertragungsfunktion $\rightarrow \mathcal{P}_{\textrm{\textbf{e}ndlich}}(Z\times\Gamma^*)$
 }
 $\delta(z, a, A) \ni(z', B_1..B_k) $, 
 oder $\epsilon$-Üg: 
@@ -220,6 +234,7 @@ Beweis Sprache $L$ nicht regulär:\\
 }
 Menge $M  \subseteq  \Sigma^*$ finden, mit $|M| = \infty$, für die gilt:\\
 z.Z.: $\forall x,y \in M: x \neq y \Longrightarrow x\; \cancel{R_L}\; y\quad$\\
+(Mit $w$ ist $xw\in L$, aber $yw \not\in L$)\\
 Dann $L$ nicht regulär, da Index von M-N-Aquivalenz $ |\Sigma^*/R_L|=\infty$
 
 \hrule
@@ -248,9 +263,16 @@ Monoid $M$ erkennt $L$, wenn $A \subseteq M, \varphi=\Sigma^* \mapsto M$ und $L=
 (bzw. $w\in L \Leftrightarrow \varphi(w) \in A$)
 mit $\varphi$ ist Homomorphismus.
 
+Eine Sprache ist erkennbar, wenn sie von einem \textit{endlichen} Monoid erkannt wird.
+
 \subsection{Homomorphismus}
 Abbildung $\varphi$: Monoid $M \rightarrow N$ Monoid. Mit Eigenschaften:\\
 $ \forall a,b\in M: f(a \circ_1 b) = f(a) \circ_2 f(b)$ und  $\varphi(\textrm{neutrE}_1) = \textrm{neutrE}_2$
+\vspace{0.1cm}
+
+Nützlich für Beweise. Z.B.: $\varphi(a)=a,\  \varphi(b)=b,\  \varphi(c)=\epsilon$
+$L'=\Sigma^* \{c\}\Sigma^* \cap \varphi^{-1}(L)$
+beschreibt Sprache $L'$ in Bezug auf $L$ mit zusätzlichem $c$ an spezieller Stelle (nur über reguläre Abschlüsse).
 
 
 \subsection{Chomsky-Normalform}
@@ -286,12 +308,17 @@ Länge & w1   & \multicolumn{1}{l|}{w2}   & \multicolumn{1}{l|}{...} \\ \hline
 \end{tabular}
 $T_{i,j} = \{A\in V | A \Rightarrow^*_G a_i ...a_{i+j-1}\}$
 
+\newpage
+
 \section{whrschl. Irrelevant}
+Kardinalität = Mächtigkeit\\
+endlich, abzählbar (bijektive Abbildung auf $\mathbb{N}$), überabzählbar
+
 \subsection{Logik}
 Kontraposition: $A\Rightarrow B \quad =\quad  \neg B \Rightarrow \neg A $\\
 DeMorgan: $\neg(A \land B) \quad =\quad  (\neg A \lor \neg B) $
 
-\subsubsection{linksrekursion Entfernen (vgl. GNF)}
+\subsubsection{Linksrekursion Entfernen (vgl. GNF)}
 $A \rightarrow A\alpha_1 | A\alpha_2|...|\beta_1 |\beta_1| ...$\\
 ersetzen durch:\\
 $A \rightarrow \beta_1|\beta_2|...  \quad |\beta_1B|\beta_2B|...$\\
@@ -301,20 +328,69 @@ $B \rightarrow \alpha_1|\alpha_2|... \quad | \alpha_1B|\alpha_2B|... $
 für $m, m^{'(')}\in M$: \\
 \textcolor{magenta}{
 \textbf{Ordnungsrelationen}\\
-reflx.: $m\ R\ m $ \\
+Reflexivität: $m\ R\ m $ \\
 Identität: $(m'\ R\ m) \land (m\ R\ m') \Rightarrow (m' = m)$\\
-transitiv: $(m'\ R\ m) \land (m\ R\ m'') \Rightarrow (m\ R\ m')$\\
+Transitivität: $(m'\ R\ m) \land (m\ R\ m'') \Rightarrow (m\ R\ m')$\\
 }
-symmetrisch: $(m'\ R\ m) \Leftrightarrow (m\ R\ m')$\\
+Symmetrie: $(m'\ R\ m) \Leftrightarrow (m\ R\ m')$\\
 
 Kongruenz: $[w_1 \equiv z_1 \textrm{ und } w_2 \equiv z_2 ] \Rightarrow w_1w_2 \equiv z_1z_2$
 
+\subsection{Formale Sprachen und Alphabet}
+Alphabet $\Sigma$: Nichtleere, endliche Menge\\
+Formale Sprache: Teilmenge von $\Sigma^*$\\
+Eine Typ-2 Sprache ist mehrdeutig, wenn jede Typ-2 Grammatik, die diese Sprache erzeugt, mehrdeutig ist.
 
+\vspace{3cm}    % ugly fix to achieve formatting - can be removed, if more text is on this page
+
+\section{Random Beweise}
 \subsubsection{Beweis Pumping-Lemma T3}
 $L$ beliebige T3-Sprache. $\Rightarrow \textrm{DEA } M$. $n=|Z|$.
 Mit $x \in L, |x|\geq n \Rightarrow x=x_1x_2x_3...x_ny$ ($y\in\Sigma^*$). 
 $Q \subseteq Z$ mit $Q=\{\hat{\delta}(z_0, x_1...x_n) \} \Rightarrow |Q|\leq n$.\\
 
+
+
+
+\subsubsection{$\equiv_L$ ist Kongruenzrelation auf $(\Sigma^*, \cdot)$}
+Seien $x,x',y,y' \in \Sigma^*$ mit $x\equiv_Lx'$ und $y\equiv_Ly'$.
+Dann gilt für $u,u',v,v' \in \Sigma^*$: $uxv \in L \Leftrightarrow ux'v \in L$ und $uyv \in L \Leftrightarrow uy'v \in L$\\
+Zu zeigen ist $xy \equiv_L x'y'$. Seien $u'',v'' \in \Sigma^*$:\\
+$uxvy \in L \Leftrightarrow ux'yv \in L \Leftrightarrow ux'y'v \in L$
+
+\subsubsection{Beweise mit Abschlusseigenschaften}
+$A=\left\{  w\in\{a,b\}^*|\ |w|_a=|w|_b  \right\}$ ist nicht regulär.\\
+Beweis durch Widerspruch: $A\cap L(a^*b^*)=\{a^nb^n|n\in\mathbb{N}\}$
+
+\vspace{0.15cm}
+$B=\left\{ a^kb^lc^m  |\ k=0 \lor l=m  \right\}$ ist nicht regulär.\\
+Beweis durch Widerspruch: $L = C \cap L(aa^*b^*c^*)=\{a^nb^mc^m \ |\ n,m\in\mathbb{N} \land n\geq 1\}$\\
+Betrachte den Homomorphismus $\varphi: \{a,b,c\}^* \rightarrow \{ b,c \}^*$,
+der durch
+$\varphi(a)=\epsilon,\ \varphi(b)=a,\ \varphi(c)=b$ definiert ist.
+Da die Klasse REG unter Homo. abgeschlossen ist, ist auch
+$\varphi(L) = \{ a^nb^n \ |\ n\in \mathbb{N} \}$ regulär. Widerspruch!
+
+
+\vfill\null    % ugly fix to achieve formatting - can be removed, if more text is on this page
+\columnbreak
+
+\subsubsection{Exponentieller Blow-Up}
+$L_k = \left\{ xay \ |\ x,y\in \{a,b\}^* \ \land \ |y|=k-1  \right\}$ \\
+Jeder DEA hat min $2^k$ Zustände:
+
+Bei Länge k existieren $2^k$ Wörter. Z.z.: Zwei Wörter $w, w'$ enden nie in gleichem Zustand: $\hat{\delta}(z_0, w) \neq \hat{\delta}(z_0, w')$
+
+Sei $w=xay_1$, $w'=xby_2$
+\textbf{Beweis durch Widerspruch:} Wenn eine Gleichheit existieren würde, müsste:
+$\hat{\delta}(z_0, w)= \hat{\delta}(z_0, w')$ gelten.
+Aber dann ist:
+$\hat{\delta}(z_0, wx) = \hat{\delta}(\hat{\delta}(z_0, w), x)
+    = \hat{\delta}(\hat{\delta}(z_0, w'), x) = \hat{\delta}(z_0, w'x)$\\
+Widerspruch, da $ wx\in L_k $, aber $w'x\not\in L_k$
+
+\vfill\null    % ugly fix to achieve formatting - can be removed, if more text is on this page
+\columnbreak
 
 \end{multicols}
 \end{document}
