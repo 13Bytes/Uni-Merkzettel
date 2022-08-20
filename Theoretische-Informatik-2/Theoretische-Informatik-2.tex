@@ -9,7 +9,7 @@
 
 \documentclass[a4paper,10pt,landscape]{article}
 \usepackage{fontspec}
-\usepackage[T1]{fontenc}
+\usepackage[T1,EU1]{fontenc}
 \usepackage{lmodern}    % font
 \usepackage[frenchb]{babel} 
 \usepackage{amssymb,amsmath,amsthm,amsfonts}
@@ -50,6 +50,8 @@
 \newcommand{\OK}{\fcolorbox{black}{lime}{\rule{0pt}{1pt}\rule{1pt}{0pt}}}
 \newcommand{\NO}{\fcolorbox{black}{red}{\rule{0pt}{1pt}\rule{1pt}{0pt}}}
 \DeclareRobustCommand{\hlcy}[1]{{\sethlcolor{cyan}\hl{#1}}}
+\newcommand{\NDTIME}{\textrm{\textcolor{yellow}{D}\textcolor{orange}{N}TIME}}
+\newcommand{\NDSPACE}{\textrm{\textcolor{yellow}{D}\textcolor{orange}{N}SPACE}}
                 
 \makeatother
 \setcounter{secnumdepth}{0}
@@ -90,27 +92,26 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
         \item $ \Pi_i^l: \mathbb{N}^l \rightarrow \mathbb{N}$ Projektion auf i-tes Element $(x_1, ..., x_l) \rightarrow x_i$
         \item $s(n) = n+1$ Nachfolger
         \item Einsetzen mit $g: \mathbb{N}^m \rightarrow \mathbb{N},\  h_i:\mathbb{N}^l \rightarrow \mathbb{N}$\\
-              $\Rightarrow \mathbb{N}^l \rightarrow \mathbb{N} \ (x_1, ..., x_l) \mapsto
-                  g(h_1(x_1,...,x_l), ..., h_m(x_1, ..., x_l))$
+            $\Rightarrow \mathbb{N}^l \rightarrow \mathbb{N} \ (x_1, ..., x_l) \mapsto 
+            g(h_1(x_1,...,x_l), ..., h_m(x_1, ..., x_l))$
         \item Primitive Rekursion:
-              %%begin novalidate
-              $f(n, x_1, ...,x_k) = \left\{
-                  \begin{array}{ll}
-                      g(x_1, ..., x_k),                           & n=0   \\
-                      h(f(n-1, x_1, ..., x_n), n, x_1, ..., x_k), & sonst
-                  \end{array}$
-              %%end novalidate
+        $f(n, x_1, ...,x_k) = \left\{
+                                    \begin{array}{ll}
+                                        g(x_1, ..., x_k), & n=0 \\
+                                        h(f(n-1, x_1, ..., x_n), n, x_1, ..., x_k), & sonst
+                                    \end{array}
+                                \right.$
+        
+        \textcolor{lime}{
+        $g(x)=0 \quad h(z,n,x)=\text{add}(z,x) \quad \Rightarrow \ f(y,x) = y \cdot x $
+        }
 
-              \textcolor{lime}{
-                  $g(x)=0 \quad h(z,n,x)=\text{add}(z,x) \quad \Rightarrow \ f(y,x) = y \cdot x $
-              }
-
-              \vspace{5pt}
-              \textcolor{lime}{
-              $\textrm{even}(0)=1=c^{0}_1 $ \\
-              $\textrm{even}(x+1)=\textrm{zero}(\textrm{even}(x)) =
-              \textrm{zero}(\Pi^2_1(\textrm{even}(x),x)) $
-              }
+        \vspace{5pt}
+        \textcolor{lime}{
+        $\textrm{even}(0)=1=c^{0}_1 $ \\
+        $\textrm{even}(x+1)=\textrm{zero}(\textrm{even}(x)) =
+        \textrm{zero}(\Pi^2_1(\textrm{even}(x),x)) $
+        }
     \end{itemize}
     \hrule
     \smallskip
@@ -132,13 +133,13 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     \subsection{= $\mu$-Berechenbar ($\mu$-Rekursiv)}
     mit $f: \mathbb{N}^{k+1}\rightarrow \mathbb{N} \quad \textcolor{red}{\mu f}:\mathbb{N}^k \rightarrow \mathbb{N}$ \\
     $\mu f(x_1, ..., x_k) =  \text{min}\left\{\ n \ |\ f(n, x_1, ..., x_k)=0 \ \land \
-        \forall m<n:f(m, x_1, ..., x_k) > 0 \right\}$ \\
+    \forall m<n:f(m, x_1, ..., x_k) > 0 \right\}$ \\
     \textcolor{lime}{Für $f(x,y)=2$ ist $\mu f$ nirgends def.} \\
     \textcolor{blue}{Sei $f$ $\mu$-Rekursiv.s
-        Dann exist. $p,q$ als $(k+1)$-stellige prim. rekursive Funktionen mit:\\
-        $f(x_1, ..., x_k) = p(x_1, ..., x_k, \mu q(x_1, ..., x_k))$\\
-        $\sim$ Satz von Kleene \\
-        $\Rightarrow$ Eine einzige While-Schleife kann das gleiche berechnen, wie ein Programm mit mehren Schleifen.
+    Dann exist. $p,q$ als $(k+1)$-stellige prim. rekursive Funktionen mit:\\
+    $f(x_1, ..., x_k) = p(x_1, ..., x_k, \mu q(x_1, ..., x_k))$\\
+    $\sim$ Satz von Kleene \\
+    $\Rightarrow$ Eine einzige While-Schleife kann das gleiche berechnen, wie ein Programm mit mehren Schleifen.
     }
     \hrule
     \smallskip
@@ -150,7 +151,9 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
 
     $f: \mathbb{N}^k \rightarrow \mathbb{N}$ ist arithmetisch repräsentierbar, falls $F$ existiert mit:\\
     $F(n_1, ..., n_k, m) \ \Leftrightarrow \ f(n_1, ..., n_k) = m$\\
-    \textcolor{lime}{$f(x,y)=x \cdot y$ a.r. mit $F(x,y,z) \Leftrightarrow ((x\cdot y)=z)$}
+    \textcolor{lime}{$f(x,y)=x \cdot y$ a.r. mit $F(x,y,z) \Leftrightarrow ((x\cdot y)=z)$}\\
+    Element: \textcolor{lime}{$x\geq 1 \ \Rightarrow \ \exists k: k+1=x $}\\
+    \textcolor{gray}{Danach Korrektheit beweisen: $F$ wahr $\Leftrightarrow$ ... $=f$}
     \hrule
     \smallskip
 
@@ -161,7 +164,7 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
 
     \vspace{10pt}
     \section{Wachstum}
-    von Programm $P$ werden alle Var aufsummiert: \hspace{2pt} $f_p(n) = \text{max}\left\{ \sum_{i\geq 0} n_i' \ |\ \sum_{n_i \geq 0} n_i \leq n \right\}$
+    von Programm $P$ werden alle Var aufsummiert: \hspace{2pt} $f_p(n) = \text{max}\left\{ \sum_{i\geq 0} n_i' \ |\ \sum_{n_i \geq 0} n_i \leq n \right\}$ 
 
     Bei LOOP: $\exists k: \forall n: f_p(n)<a(k,n)$
 
@@ -171,29 +174,25 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     \section{Entscheidbarkeit}
     Menge ist \textbf{Entscheidbar}, wenn für Menge $A$ charakteristische Funktion $\chi_A$ berechenbar ist. \hspace{2pt}
     $\chi_A(w) =
-        %%begin novalidate
         \left\{
-        %%end novalidate
         \begin{array}{ll}
-            1, & w\in A     \\
-            0, & w\not\in A
-        \end{array}$
+        1, & w\in A \\
+        0, & w\not\in A
+        \end{array} \right. $
 
     \textcolor{blue}{$A \text{ entscheidbar} \Leftrightarrow A, \bar{A}$ semi-entscheidbar}
 
-    Menge ist \textbf{Semi-Entscheidbar}, wenn $\chi_A'$ wahr für $w \in A$ zurück gibt (also hält). \hspace{3pt}
+    Menge ist \textbf{Semi-Entscheidbar}, wenn $\chi_A'$ wahr für $w \in A$ zurück gibt (also hält). \hspace{3pt} 
     $\chi_A(w) =
-        %%begin novalidate
         \left\{
-        %%end novalidate
         \begin{array}{ll}
-            1,             & w\in A     \\
-            \text{undef.}, & w\not\in A
-        \end{array}$
+        1, & w\in A \\
+        \text{undef.}, & w\not\in A
+        \end{array} \right. $
 
-    Semi-entscheidbar ist äquivalent zu:
+    \textbf{Semi-Entscheidbar} ist äquivalent zu:
     \begin{itemize}
-        \item  rekursiv Aufzählbar: $\exists f: \mathbb{N} \rightarrow \Sigma^* $ \hspace{1pt}:\hspace{1pt}  $A = \{ f(n) | n \in \mathbb{N} \}$
+        \item  \textbf{rekursiv Aufzählbar}: $\exists f: \mathbb{N} \rightarrow \Sigma^* $ \hspace{1pt}:\hspace{1pt}  $A = \{ f(n) | n \in \mathbb{N} \}$
         \item $A$ ist Typ 0
         \item $\exists$ Turing Maschine $M$: $A=T(M)$
         \item $\chi'$ ist berechenbar
@@ -209,8 +208,8 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     \subsection{\textcolor{blue}{Satz von Rice}}
     \textcolor{blue}{Nicht-triviale Aussagen über die Spracheigenschaften von TM sind unentscheidbar.}\\
     \textcolor{gray}{
-        $S \subseteq R$ turing-berechenbare Funk. mit $ \emptyset \neq S \neq R$\\
-        $C(s) = \{ w \ |\ M_w \textrm{ berechnet eine Funktion aus } S \}$ ist unentscheidbare Menge.
+    $S \subseteq R$ turing-berechenbare Funk. mit $ \emptyset \neq S \neq R$\\
+    $C(s) = \{ w \ |\ M_w \textrm{ berechnet eine Funktion aus } S \}$ ist unentscheidbare Menge.
     }\\
     \textcolor{red}{Nur für Sprachen verwenden, deren Elemente kodierte TMs sind!}\\
     \textbf{Verwendung im Beweis}: \\
@@ -229,6 +228,9 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
 
 
     \section{Komplexität}
+    Alle deterministischen Klassen sind gegen Komplement abgeschlossen.
+
+    \textcolor{lime}{zB: $A \in \textrm{DTIME}(\mathcal{O}(\log (n)))$}
     \subsection{Zeitklassen}
     DTIME ist gegen Komplement abgeschlossen\\
     NTIME nicht.
@@ -241,7 +243,7 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
 
     \textcolor{blue}{$A \leq_p B \ \land \ B\in \textrm{(N)P} \Rightarrow A \in \textrm{(N)P}$}\\
     \textcolor{gray}{
-        Beweis $A \in$ NP oft mit guess \& check
+    Beweis $A \in$ NP oft mit guess \& check
     }
 
     \subsubsection{EXPTIME - \textit{Exponentialzeit}}
@@ -252,13 +254,17 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     SPACE und NSPACE sind gegen Komplement abgeschlossen,\\
     wenn $f\in \Omega(\log(n))$ \hspace{10pt}
     $\Rightarrow \ \textrm{NSPACE}(f) = \textrm{coNSPACE}(f)$
+
+    \vspace*{5pt}
+    Wird $x$ viel Platz nicht verlassen, endet die Maschine nach spätestens $|x| \cdot |Z| \cdot |\Gamma|^{(|x|+1)} $ in einer Schleife
+
     \subsubsection{L = LOGSPACE - \textit{logarithmischer Platz}}
 
     \subsubsection{NL - \textit{nichtdeterministischer log. Platz}}
 
     \subsubsection{PSPACE - \textit{polynomieller Platz}}
     \textcolor{gray}{
-        $=\bigcup_{k\geq 1}\textrm{DSPACE}(n^k) = \bigcup_{k\geq 1}\textrm{NSPACE}(n^k)$
+    $=\bigcup_{k\geq 1}\textrm{DSPACE}(n^k) = \bigcup_{k\geq 1}\textrm{NSPACE}(n^k)$
     }
 
     \hrule
@@ -269,34 +275,33 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     $\textrm{DTIME}(f)\subseteq \textrm{DTIME}_{2-\textrm{Band}}(f \log f)$\\
     $\sim$ Satz von Hennie und Stearns
     }
-    (wenn $\epsilon > 0$ mit $\forall n:f(n) \geq (1+\epsilon)n$ existiert)
+    (wenn $\epsilon > 0$ mit $\forall n:f(n) \geq (1+\epsilon)n$ existiert)\\
 
-    \vspace*{8pt}
-    (für alle $f: \mathbb{N}\rightarrow \mathbb{N}, \forall n: f(n)\geq n$)
+    \vspace*{5pt}
+    $\textrm{\NDSPACE}(f) = \textrm{\NDSPACE}_{1-\textrm{Band}}(f)$\\
+
+    \vspace*{7pt}
     \textcolor{blue}{
-        $\textrm{DTIME}(f)\subseteq  \textrm{NTIME}(f) \subseteq \textrm{DSPACE}(f)$\\
-        $\textrm{DSPACE}(f)\subseteq  \textrm{NSPACE}(f) \subseteq \textrm{DTIME}(2^{\mathcal{O}(f)})$ } - expon. Blowup\\
-    $\Rightarrow \textrm{DSPACE}(f)\subseteq \textrm{DTIME}(2^{\mathcal{O}(f)}$
-
-    \vspace*{8pt}
-    \textcolor{red}{
-        $\textrm{L} \subseteq
-            \textrm{NL} \subseteq
-            \textrm{P}\subseteq
-            \textrm{PSPACE}\subseteq
-            \textrm{EXPTIME} $
-    }
-    $\Rightarrow \textrm{DSPACE}(\log n)
-        \subseteq\textrm{NSPACE}(\log n)
-        \subseteq\textrm{DTIME}(2^{\mathcal{O}(\log n)})
-        = \textrm{P} $
-
-    \vspace*{8pt}
+    $\textrm{DTIME}(f) = \textrm{DTIME}(\mathcal{O}(f)) \ $} 
+    falls $ \exists \epsilon > 0: \forall n:\ f(n)\geq (1+\epsilon)n$ \\
     \textcolor{blue}{
-        $\textrm{NSPACE}(s)\subseteq \textrm{DSPACE}(s^2)$\\
-        $\sim$ \textbf{Satz von Savitch}\\
+    $\textrm{NTIME}(f) = \textrm{NTIME}(\mathcal{O}(f)) \ $} immer \\
+    \textcolor{blue}{
+    $\sim$ Zeit-/Platz-kompressionssatz
     }
-    (mit $s \in \Omega(\log n)$)
+
+    \vspace*{7pt}
+    \textcolor{blue}{$\textrm{DTIME}(f)\subseteq  \textrm{NTIME}(f) \subseteq \textrm{DSPACE}(f)$ }
+    $\forall f: \mathbb{N}\rightarrow \mathbb{N}, \forall n: f(n)\geq n$\\
+    \textcolor{blue}{$\textrm{DSPACE}(f)\subseteq  \textrm{NSPACE}(f) \subseteq \textrm{DTIME}(2^{\mathcal{O}(f)})$ }
+    $\forall  f: \mathbb{N}\rightarrow \mathbb{N},$\\$\ \forall n: f(n)\geq \log(n)$ - exponentieller Blowup\\
+    \textcolor{blue}{$\Rightarrow \textrm{DSPACE}(f)\subseteq \textrm{DTIME}(2^{\mathcal{O}(f)})$}
+
+    \vspace*{7pt}
+    \textcolor{blue}{
+    $\textrm{NSPACE}(s)\subseteq \textrm{DSPACE}(s^2)$} mit $s \in \Omega(\log n)$\\
+    \textcolor{blue}{$\sim$ \textbf{Satz von Savitch}\\
+    }
 
     \subsection{Zeit- / Platzkonstruierbar}
     Deterministische TM existiert, die bei unär kodierter Eingabe $a^n$ der Länge $n$, $f(n)$ viel Platz/Zeit braucht.
@@ -307,25 +312,25 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     \subsection{\_\_\_-Hierarchiesatz}
     \textbf{Platz:} Sei
     $s_1, s_2: \mathbb{N} \rightarrow \mathbb{N} \ ,\
-        s_1 \notin \Omega(s_2) \ ,\ s_2\in\Omega(\log n) \ ,\  s_2$~platzkonstruierbar \\
+    s_1 \notin \Omega(s_2) \ ,\ s_2\in\Omega(\log n) \ ,\  s_2$~platzkonstruierbar \\
     \textcolor{blue}{ $\textrm{DSPACE}(s_2) \backslash \textrm{DSPACE}(s_1) \neq \emptyset$}\\
-    Beweis für $s_1\notin \Omega(s_2): \quad \forall c>0: \exists a\in \mathbb{N}: s_1(a) < c\cdot c_2(b)$
+    Beweis für $s_1\notin \Omega(s_2): \quad \forall c>0: \exists a\in \mathbb{N}: s_1(a) < c\cdot s_2(b)$
     Aufstellen und $a$ suchen, für das Gleichung stimmt.\\
     \textcolor{lime}{$ \Rightarrow \quad \textrm{DSPACE}(\log) \subsetneq \textrm{DSPACE}(\log^2)$}
 
     \vspace*{8pt}
     \textbf{Zeit:} Sei
     $t_1, t_2: \mathbb{N} \rightarrow \mathbb{N} \ ,\
-        t_1 \log(t_1) \notin \Omega(t_2) \ ,\ t_2\in\Omega(n \log(n)) \ ,\  t_2$~zeitkonstruierbar \\
+    t_1 \log(t_1) \notin \Omega(t_2) \ ,\ t_2\in\Omega(n \log(n)) \ ,\  t_2$~zeitkonstruierbar \\
     \textcolor{blue}{ $\textrm{DTIME}(t_2) \backslash \textrm{DTIME}(t_1) \neq \emptyset$}\\
     \textcolor{lime}{$ \Rightarrow \quad \textrm{DTIME}(\mathcal{O}(n)) \subsetneq \textrm{DTIME}(\mathcal{O}(n^2))$}
 
     \vspace*{8pt}
-    \textcolor{blue}{
-        Sei $r$ total und berechenbar. $\forall n: r(n)\geq n$ \\
-        $ \Rightarrow \exists$ totale Funktion $ s: \mathbb{N} \rightarrow  \mathbb{N} \quad s(n) \geq n+1 \ $
-        mit $\textrm{DTIME}(s) = \textrm{DTIME}(r \circ s)$ \\
-        $\sim $ Satz von Borodim\\
+    \textcolor{blue}{ 
+    Sei $r$ total und berechenbar. $\forall n: r(n)\geq n$ \\
+    $ \Rightarrow \exists$ totale Funktion $ s: \mathbb{N} \rightarrow  \mathbb{N} \quad s(n) \geq n+1 \ $
+    mit $\textrm{DTIME}(s) = \textrm{DTIME}(r \circ s)$ \\
+    $\sim $ Satz von Borodim\\
     }
     ($s$ ist nicht zeitkonstruierbar)
     % \hrule
@@ -343,6 +348,7 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
 
 
     \subsubsection{SAT - \textit{Satisfiablity}}
+    \hl{NP-vollständig}\\
     SAT $=\{ \textrm{F} \ |\ \textrm{F ist erfüllbar} \}$\\
     \textcolor{gray}{Algos aktuell bei $2^{c\cdot n}$ (also $\in$ E)}\\
     Allgemein äquivalent zu\\
@@ -436,20 +442,20 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     \subsection{Ackermann-Funktion $\textrm{A}(n)= \textrm{a}(n,m)$}
     \arraycolsep=1.4pt
     $\begin{array}{ll}
-            \textrm{a}(0,y) & = y+1                               \\
-            \textrm{a}(x,0) & = \textrm{a}(x-1,1)                 \\
-            \textrm{a}(x,y) & = \textrm{a}(x-1,\textrm{a}(x,y-1))
-        \end{array}$
+    \textrm{a}(0,y) &= y+1 \\
+    \textrm{a}(x,0) &= \textrm{a}(x-1,1)\\
+    \textrm{a}(x,y) &= \textrm{a}(x-1,\textrm{a}(x,y-1))
+    \end{array}$
     \textcolor{gray}{$x,y>0$}\\
     \vspace{2pt}
     \textcolor{lime}{
-        $\begin{array}{ll}
-                y                 & < \textrm{a}(x,y)      \\
-                \textrm{a}(x,y)   & < \textrm{a}(x,y+1)    \\
-                \textrm{a}(x,y+1) & \leq \textrm{a}(x+1,y) \\
-                \textrm{a}(x,y)   & < \textrm{a}(x+1,1)    \\
-            \end{array}
-        $}
+    $\begin{array}{ll}
+    y &< \textrm{a}(x,y) \\
+    \textrm{a}(x,y) &< \textrm{a}(x,y+1) \\
+    \textrm{a}(x,y+1) &\leq \textrm{a}(x+1,y) \\
+    \textrm{a}(x,y) &< \textrm{a}(x+1,1)\\
+    \end{array}
+    $}
     \hrule
     \smallskip
 
@@ -461,10 +467,10 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     \subsection{Dove-Tailing}
     \begin{itemize}
         \item $\Sigma^* =\{w_1, w_2, ...\}$ Längenlexikographisch Anordnen
-        \item
-              FOR $i=0,1,2, ...$ DO\\
-              \hspace*{7pt}Simuliere $i$ Schritte von $M_w$ auf Eingabe $e(i)$\\
-              \hspace*{7pt}...Kriterium...
+        \item 
+        FOR $i=0,1,2, ...$ DO\\
+        \hspace*{7pt}Simuliere $i$ Schritte von $M_w$ auf Eingabe $e(i)$\\
+        \hspace*{7pt}...Kriterium...
     \end{itemize}
     \hrule
     \smallskip
@@ -474,14 +480,12 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     Padding einer Sprache mit $\$ \notin \Sigma$\\
     $\textrm{Pad}_f(L) = \left\{ w \$^{f(|w|)-|w|} \ |\ w\in L \right\}$
 
-    \newcommand{\NDTIME}{\textrm{\textcolor{yellow}{D}\textcolor{orange}{N}TIME}}
     \textbf{Zeit}: \textcolor{blue}{
-        $\textrm{Pad}_f(L) \in \NDTIME(\mathcal{O}(g)) \Leftrightarrow \textrm{L} \in \NDTIME(\mathcal{O}(g\circ f)) $}\\
+    $\textrm{Pad}_f(L) \in \NDTIME(\mathcal{O}(g)) \Leftrightarrow \textrm{L} \in \NDTIME(\mathcal{O}(g\circ f)) $}\\
     mit $f,g$ zeitkonstruierbar, $g(n),f(n)\geq n$
 
-    \newcommand{\NDSPACE}{\textrm{\textcolor{yellow}{D}\textcolor{orange}{N}SPACE}}
     \textbf{Platz}: \textcolor{blue}{
-        $\textrm{Pad}_f(L) \in \NDSPACE(\mathcal{O}(g)) \Leftrightarrow \textrm{L} \in \NDSPACE(\mathcal{O}(g\circ f)) $}\\
+    $\textrm{Pad}_f(L) \in \NDSPACE(\mathcal{O}(g)) \Leftrightarrow \textrm{L} \in \NDSPACE(\mathcal{O}(g\circ f)) $}\\
     mit $g\in \Omega(\log)$, $\forall n: f(n)\geq n$ berechenbar
 
     \vspace{5pt}
@@ -492,16 +496,15 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
 
     \subsection{Aufzählbar / Abzählbar}
     \begin{tabular}{|c|c|}
-        \hline
-        \textbf{rekursiv Aufzählbar} & \textbf{Abzählbar}                       \\ \hline
-        \multicolumn{2}{|c|}{totale Funktion $f:\mathbb{N}\rightarrow\Sigma^*$} \\ \hline
-        $f$ berechenbar              &                                          \\ \hline
+    \hline
+    \textbf{rekursiv Aufzählbar} & \textbf{Abzählbar}    \\ \hline
+    \multicolumn{2}{|c|}{totale Funktion $f:\mathbb{N}\rightarrow\Sigma^*$} \\ \hline
+    $f$ berechenbar          &  \\ \hline        
     \end{tabular}\\
     Mit $A\subseteq B$ folgt NICHT:\\
     $B$ rekursiv aufzählbar $\not \Rightarrow A$ rek. aufzählbar. Nur $A$ abzählbar
 
-
-
+    \vspace*{1pt}
     \hrule
     \smallskip
 
@@ -522,7 +525,8 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
 
     \subsection{Landau-Symbole}
     $f\in \mathcal{O}$: f wächst nicht wesentlich schneller als ... \\
-    $f\in \Omega$: f wächst nicht wesentlich langsamer als ...
+    $f\in \Omega$: f wächst nicht wesentlich langsamer als ...\\
+    Beweis $f(n) \in \mathcal{O}(b(n))$: $\exists c \exists n_0 \ \forall (n \geq n_0): \ b(n) \leq c \cdot f(n) $
     \hrule
     \smallskip
 
@@ -530,34 +534,46 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     \subsection{Relationen}
     \newcommand*\rot{\rotatebox{90}}
     \begin{tabular}{|l|llllllllll|}
-        \hline
-                       & \rot{$L_1=L_2$}
-                       & \rot{$L_1 \subseteq L_2$}
-                       & \rot{$L_1 \cap L_2 = \emptyset$}
-                       & \rot{$ |L_1 \cap L_2| < \infty $}
-                       & \rot{\begin{tabular}[c]{@{}l@{}}$ L(G) = L_1 \cap L_2 $\\ G ist Type-2\end{tabular}}
+    \hline
+        & \rot{$L_1=L_2$}
+        & \rot{$L_1 \subseteq L_2$}
+        & \rot{$L_1 \cap L_2 = \emptyset$}
+        & \rot{$ |L_1 \cap L_2| < \infty $}
+        & \rot{\begin{tabular}[c]{@{}l@{}}$ L(G) = L_1 \cap L_2 $\\ G ist Typ-2\end{tabular}}
 
-                       & \rot{Schnitt $\cap$}
-                       & \rot{Verein. $\cup$}
-                       & \rot{Kompl.}
-                       & \rot{Produkt}
-                       & \rot{Stern}
+        & \rot{Schnitt $\cap$}
+        & \rot{Verein. $\cup$}
+        & \rot{Kompl.}
+        & \rot{Produkt}
+        & \rot{Stern}
         \\ \hline
-        Typ-3 Reg      &                                                                                      &     &     &     &     & \OK & \OK & \OK & \OK & \OK \\\hline
-        DCFL           & \OK                                                                                  & \NO & \NO & \NO & \NO & \NO & \NO & \OK & \NO & \NO \\
-        Det. Kntx-frei &                                                                                      &     &     &     &     &     &     &     &     &     \\\hline
-        Typ-2 CFL      & \NO                                                                                  & \NO & \NO & \NO & \NO & \NO & \OK & \NO & \OK & \OK \\
-        Kntx-frei      &                                                                                      &     &     &     &     &     &     &     &     &     \\\hline
-        Typ-1 CSL      &                                                                                      &     &     &     &     & \OK & \OK & \OK & \OK & \OK \\\hline
-        Typ-0          &                                                                                      &     &     &     &     & \OK & \OK & \NO & \OK & \OK \\\hline
+    Typ-3 Reg               &   &   &\OK&   &   & \OK  & \OK  & \OK   & \OK      & \OK    \\\hline
+    DCFL                    &\OK&\NO&\NO&\NO&\NO& \NO  & \NO  & \OK   & \NO      & \NO    \\
+    Det. Kntx-frei          &   &   &   &   &   &      &      &       &          &        \\\hline
+    Typ-2 CFL               &\NO&\NO&\NO&\NO&\NO& \NO  & \OK  & \NO   & \OK      & \OK    \\
+    Kntx-frei               &   &   &   &   &   &      &      &       &          &        \\\hline
+    Typ-1 CSL               &   &   &   &   &   & \OK  & \OK  & \OK   & \OK      & \OK    \\\hline
+    Typ-0                   &   &   &   &   &   & \OK  & \OK  & \NO   & \OK      & \OK    \\\hline
     \end{tabular}\\
     \includegraphics[width=0.26\textwidth]{Beziehungen.png}
+
+    $\textrm{L} \subseteq
+    \textrm{NL} \subseteq 
+    \textrm{P}\subseteq 
+    \textrm{PSPACE}\subseteq
+    \textrm{EXPTIME} $
+    \textcolor{lime}{
+    $\Rightarrow \textrm{DSPACE}(\log n)
+    \subseteq\textrm{NSPACE}(\log n)
+    \subseteq\textrm{DTIME}(2^{\mathcal{O}(\log n)})
+    = \textrm{P} $
+    }
 
     \hrule
     \smallskip
 
 
-    \subsection{$G(a,b,i,\cdot)-Prädikat$}
+    \subsection{$G(a,b,i,\cdot)$-Prädikat}
     $G(a,b,i,y) \Leftrightarrow y=a \mod (1+(i+1)\cdot b)$\\
     \textcolor{gray}{$\Rightarrow \ y\leq(i+1)b \quad (1+(i+1)b \ \% \ (a-y))=0 $}\\
     $a,b$ zwei Werte, die endliche Folge $(n_0, ..., n_k)$ kodieren.\\
@@ -565,8 +581,8 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     $n_i = y \ \Leftrightarrow \ G(a,b,i,y)$
 
     \textcolor{blue}{
-        $\forall k \forall (n_0, ..., n_k)\in \mathbb{N}^{k+1} \ \exists a,b \in \mathbb{N}$
-        $\forall i \in \{ 0, ..., k \}: \; G(a,b,i, n_i)$
+    $\forall k \forall (n_0, ..., n_k)\in \mathbb{N}^{k+1} \ \exists a,b \in \mathbb{N}$
+    $\forall i \in \{ 0, ..., k \}: \; G(a,b,i, n_i)$
     }
     \hrule
 
