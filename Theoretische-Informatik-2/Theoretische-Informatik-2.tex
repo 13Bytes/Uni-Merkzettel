@@ -253,7 +253,8 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     \subsection{Platzklassen}
     SPACE und NSPACE sind gegen Komplement abgeschlossen,\\
     wenn $f\in \Omega(\log(n))$ \hspace{10pt}
-    $\Rightarrow \ \textrm{NSPACE}(f) = \textrm{coNSPACE}(f)$
+    $\Rightarrow \ \textrm{NSPACE}(f) = \textrm{coNSPACE}(f)$\\
+    (NSPACE: Immerman und Szelepcsényi)
 
     \vspace*{5pt}
     Wird $x$ viel Platz nicht verlassen, endet die Maschine nach spätestens $|x| \cdot |Z| \cdot |\Gamma|^{(|x|+1)} $ in einer Schleife
@@ -289,6 +290,12 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     \textcolor{blue}{
     $\sim$ Zeit-/Platz-kompressionssatz
     }
+
+    \vspace*{7pt}
+    \textcolor{lime}{
+        $ \textrm{DSPACE}(4^{\mathcal{O}(n)}) = \bigcup_{c\in \mathbb{N}} \textrm{DSPACE}(4^{c\cdot n}) $
+    }
+
 
     \vspace*{7pt}
     \textcolor{blue}{$\textrm{DTIME}(f)\subseteq  \textrm{NTIME}(f) \subseteq \textrm{DSPACE}(f)$ }
@@ -377,12 +384,12 @@ Merkblatt Theo 2 - Matr.: \hspace{3cm} Name: \hspace{16cm}
 
 
     \subsubsection{GAP - \textit{Grapherreichbarkeit}}
-    \hlcy{NL-vollständig}\\
+    \hl{$\in$P}, \hlcy{NL-vollständig}\\
     Auf Graph $G = (V,E), \quad k\in\mathbb{N}$ und 2 Knoten: $s,t\in V$\\
     Kann man über Kanten $\in E$ von $s$ zu $t$ gelangen?\\
     \textcolor{gray}{DSPACE($\log^2n$)}\\
 
-    GAP $\in$ NP, da:\\
+    GAP $\in$ NL, da:\\
     WHILE $ v\neq t$ DO \{ \\
     Wähle nicht-det. $w\in V$, \hspace{3pt} aus $(v,w)\in E$\\
     $v=w$ \}\\
