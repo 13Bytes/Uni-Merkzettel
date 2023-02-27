@@ -257,7 +257,8 @@ Merkblatt Theo 3 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     
     \columnbreak
     
-     \section{Sortieralgos}
+    \section{Sortieralgos}
+    Da entscheidungsbasiert: mind. Laufzeit von $\log(n!) \in \Omega(n \log n)$. Algo durchquert Baum mit $n!$ Blättern.
     \subsubsection{Dykstra}
     Setzte Kosten aller Knoten auf ∞, außer Startknoten (hier 0). \\
     Füge alle Knoten in eine Queue.\\
@@ -295,7 +296,7 @@ Merkblatt Theo 3 - Matr.: \hspace{3cm} Name: \hspace{16cm}
 
 
     \subsubsection{Algo optimale Klammerung}
-    Ähnlich zu CYK. $T_{i,j} = \min_{i\leq m \leq j}(T_{i,m} + T_{m+1, j} +  n_{i-1}\cdot n_m \cdot n_j)$\\
+    Ähnlich zu CYK. $T_{i,j} = \min_{i\leq m < j}(T_{i,m} + T_{m+1, j} +  n_{i-1}\cdot n_m \cdot n_j)$\\
     Benutzte Technik: Memoization (dyn. Programmieren)
     \hrule
     \smallskip
