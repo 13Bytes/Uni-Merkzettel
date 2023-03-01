@@ -168,6 +168,7 @@ Merkblatt Theo 3 - Matr.: \hspace{3cm} Name: \hspace{16cm}
         
     \subsubsection{Modulo-Tricks}
     - Satz von Euler (für Exponenten) \& Chin. Restsatz (für Modul)\\
+    - Satz von Fermat, wenn $\mod p \rightarrow a^{p-1}$ auskl.\\
     - mod 3 ist Quersumme $\mod 3$ \textcolor{gray}{(mod in Summe $\sum a_i \cdot 10^i$ ziehen)}\\
     - binäre Exponentiation\\
     - $x^d\mod n \Leftrightarrow x^{d \mod (p-1)} \mod p \land x^{d \mod (q-1)} \mod q $\\
@@ -230,7 +231,7 @@ Merkblatt Theo 3 - Matr.: \hspace{3cm} Name: \hspace{16cm}
        
     \subsubsection{Planar}
     Isomorpher G. auf Ebene ohne kreuzende Kanten existiert.\\
-    G ist planar $\Leftrightarrow$ G enthält keine Unterteilung von $K_5$ oder $K_{3,3}$\\
+    G ist planar $\Leftrightarrow$ Untergraph von G enthält keine Unterteilung von $K_5$ oder $K_{3,3}$
     \textcolor{gray}{\char`\~ Satz von Kuratowski}
     \hrule
     
@@ -311,7 +312,7 @@ Merkblatt Theo 3 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     $f\in \omega$:                                           & $\succ $ & f wächst schneller als .. \\
     \end{tabular}
 
-    Beweis $f(n) \in \mathcal{O}(b(n))$: $\exists c \exists n_0 \ \forall (n \geq n_0): \ b(n) \leq c \cdot f(n) $
+    Beweis $f(n) \in \mathcal{O}(b(n))$: $\exists c \exists n_0 \ \forall (n \geq n_0): \ f(n) \leq c \cdot b(n) $
     
     \subsubsection{Bekannte Relationen}
     $\log(n!) \in \Omega(n \log n) $ \hspace{10bp}  (Worst-Case vergleichsbasiertes Sortieren) \\
@@ -396,12 +397,19 @@ Merkblatt Theo 3 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     ist ein bijektiver \textbf{Homomorphismus:} \\
     strukturerhaltende Abbildung:\\
     $\varphi: (M_1, \circ_1, e_1) \mapsto (M_2, \circ_2, e_2)$ mit $\varphi(m\circ_1m') = \varphi(m) \circ_2 \varphi(m')$
+    \subsection{Injektiv / Surjektiv}
+    Für $X \mapsto Y$:\\
+    Injektiv (linkseindeutig): jedes y hat höchstens ein x.\\
+    Surjektiv (rechtstotal): jedes y hat mind. ein x. (Jedes Element in Bildmenge wird getroffen)
     \hrule
     \smallskip
     
     \subsection{Primzahlzertifikat für $n$}
     $\forall \textrm{ Primzahlen } p: \ n\equiv 1 \mod p: \ \exists a \in \mathbb{Z}$:\\
-    $a^{n-1} \equiv 1 \mod n $ und $a^{\frac{n-1}{p}} \not\equiv 1 \mod n$
+    $a^{n-1} \equiv 1 \mod n $ und $a^{\frac{n-1}{p}} \not\equiv 1 \mod n$\\
+    erste Primzahlen:
+    $2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79,$
+    $83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, ...$
     \hrule
     \smallskip
     
@@ -487,7 +495,7 @@ Merkblatt Theo 3 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     Monoid: $(S, \circ)$: $\exists$ neutrales Element  $e: \ \forall x\in S: x\circ e = x = e \circ x $ \\
     Gruppe: Jedes Element hat Inverses: $x \circ x^{-1} = e = x^{-1} \circ x $\\
     
-    Alle können kommutativ sein ($x\circ y = y \circ x$) \textcolor{gray}{(gilt nicht für Minus)}
+    Alle können \textbf{kommutativ} sein ($x\circ y = y \circ x$) \textcolor{gray}{(gilt nicht für Minus)}
     
     \textbf{Äquivalenzklasse: }
     $[x]_\sim  = \{ y  \in M | x \sim y  \}$ bezogen auf Monoid $(M, \circ)$ mit Äquivalenzrelation $\sim$
@@ -497,8 +505,10 @@ Merkblatt Theo 3 - Matr.: \hspace{3cm} Name: \hspace{16cm}
     
     \textbf{Kongruenzrelation falls:} 
     $x \sim x' \land y\sim y' \Rightarrow x \circ y \sim x' \circ y'$
-    
     \hrule
+    
+    \textbf{Ring:}
+    $(R,+, \cdot)$  abelsche (kommutative) Gruppe unter Addition; Halbgruppe unter Multiplikation
     
     \vfill\null    % ugly fix to achieve formatting - can be removed, if more text is on this page
 
